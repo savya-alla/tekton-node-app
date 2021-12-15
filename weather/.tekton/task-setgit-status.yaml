@@ -1,9 +1,12 @@
+---
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: task-setgit-status
 spec:
   params:
+    - name: secret-name
+      description: The name of the secret in the workspace
     - name: repo-url
       description: the URL of the Github repository
     - name: commit-sha
@@ -37,6 +40,14 @@ spec:
     - name: pipeline-debug
       description: Pipeline debug mode
       default: "0"
+  stepTemplate:
+    env:
+      - name: PIPELINE_DEBUG
+        value: $(params.pipeline-debug)
+      - name: PIPELINE_RUN_URL
+        valueFrom:
+          fieldRef:
+            fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-run-url']
   steps:
     - name: github-set-status
       image: wcp-compliance-automation-team-docker-local.artifactory.swg-devops.com/ibm-compliance-automation:1.1.0@sha256:9ddd07bafd922f9b9ef7469a81d430710b7f1de17144d0ddbd6cf545da6a98f0
@@ -56,22 +67,6 @@ spec:
           set -x
         fi
 
-        get_github_state() {
-          declare -A GITHUB_STATE_MAPPER
-
-          GITHUB_STATE_MAPPER[failed]="failure"
-          GITHUB_STATE_MAPPER[canceled]="error"
-          GITHUB_STATE_MAPPER[running]="pending"
-
-          if [ ${GITHUB_STATE_MAPPER[$1]} ]; then
-            echo ${GITHUB_STATE_MAPPER[$1]}
-
-            return 0;
-          fi
-
-          echo "$1"
-        }
-
         TARGET_URL=$(params.target-url)
         if [ -z "$TARGET_URL" ]; then
           TARGET_URL=$PIPELINE_RUN_URL
@@ -90,12 +85,11 @@ spec:
         IFS='/' read -ra URL_PARTS <<< "$(params.repo-url)"
         REPO="${URL_PARTS[3]}/${URL_PARTS[4]}"
 
-        STATE="$(get_github_state "$(params.state)")"
         export GHE_ORG=${URL_PARTS[3]}
         export GHE_REPO=${URL_PARTS[4]}
         export GIT_COMMIT=$(params.commit-sha)
 
-        echo "Setting '$STATE' state on commit '$(params.commit-sha)' in '$(params.repo-url)'"
+        echo "Setting '$(params.state)' state on commit '$(params.commit-sha)' in '$(params.repo-url)'"
 
         CONTEXT="$(params.context)"
         if [ -n "$(params.task-name)" ]; then
@@ -106,7 +100,7 @@ spec:
 
         retry $(params.retry-count) $(params.retry-delay) \
           cocoa set-status \
-            --state="$STATE" \
+            --state="$(params.state)" \
             --targetURL="$TARGET_URL" \
             --context="$CONTEXT" \
             --description="$(params.description)"
@@ -117,3 +111,11 @@ spec:
           echo "Error setting the github status. There might be a github downtime, you can check it here: https://ibmtoolbox.statuspage.io"
           exit $exit_code
         fi
+
+      volumeMounts:
+        - mountPath: /scripts
+          name: retry-command
+
+  workspaces:
+    - name: secrets
+      mountPath: /secrets
