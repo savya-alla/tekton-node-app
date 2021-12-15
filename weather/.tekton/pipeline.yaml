@@ -16,10 +16,9 @@ spec:
       value: "." 
     - name: task-pvc
       value: tekton-pvc
-
-    - name: buildnum
     - name: statuses-repo-url
       description: the base repository's status URL
+      value: https://github.com/savya-alla/tekton-node-app
     - name: branch
       description: the branch for the git repo
       defualt: master
@@ -45,7 +44,13 @@ spec:
         name: task-setgit-status
       params:
         - name: repo-url
-          value: $(params.statuses-repo-url)
+          value: $(params.
+          
+          
+          
+          
+          
+          )
         - name: commit-sha
           value: $(params.revision)
         - name: state
