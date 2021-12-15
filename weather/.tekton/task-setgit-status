@@ -37,14 +37,6 @@ spec:
     - name: pipeline-debug
       description: Pipeline debug mode
       default: "0"
-  stepTemplate:
-    env:
-      - name: PIPELINE_DEBUG
-        value: $(params.pipeline-debug)
-      - name: PIPELINE_RUN_URL
-        valueFrom:
-          fieldRef:
-            fieldPath: metadata.annotations['devops.cloud.ibm.com/pipeline-run-url']
   steps:
     - name: github-set-status
       image: wcp-compliance-automation-team-docker-local.artifactory.swg-devops.com/ibm-compliance-automation:1.1.0@sha256:9ddd07bafd922f9b9ef7469a81d430710b7f1de17144d0ddbd6cf545da6a98f0
