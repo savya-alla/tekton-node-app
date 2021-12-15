@@ -21,7 +21,7 @@ spec:
       default: https://github.com/savya-alla/tekton-node-app
     - name: branch
       description: the branch for the git repo
-      defualt: master
+      default: master
     - name: revision
       description: |
         the git revision/commit to update the git HEAD to.
