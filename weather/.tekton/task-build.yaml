@@ -5,8 +5,6 @@ metadata:
 spec:
   inputs:
     params:
-    - name: source-dir
-      description: source directory where the app is
     - name: app-name
       description: name of the application to buidl
     - name: task-pvc
