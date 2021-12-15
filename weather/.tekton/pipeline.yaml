@@ -45,7 +45,7 @@ spec:
       taskRef:
         name: task-setgit-status
       params:
-        - name: secret
+        - name: secret-name
           value: $(params.secret-name)
         - name: repo-url
           value: $(params.statuses-repo-url)
@@ -83,7 +83,7 @@ spec:
         - name: secrets
           workspace: artifacts
       params:
-        - name: secret
+        - name: secret-name
           value: $(params.secret-name)
         - name: repo-url
           value: $(params.statuses-repo-url)
