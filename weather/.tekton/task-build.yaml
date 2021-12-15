@@ -5,10 +5,10 @@ metadata:
 spec:
   inputs:
     params:
-    - name: app-name
-      description: name of the application to buidl
-    - name: task-pvc
-      description: output pvc
+      - name: app-name
+        description: name of the application to buidl
+      - name: task-pvc
+        description: output pvc
   steps:
     - name: build-setup
       image: ibmcom/pipeline-base-image
