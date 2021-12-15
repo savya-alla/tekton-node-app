@@ -69,8 +69,6 @@ spec:
         - name: artifacts
           workspace: artifacts
       params:
-        - name: source-dir
-          value: $(params.repository)
         - name: app-name
           value: $(params.revision)
         - name: task-pvc
