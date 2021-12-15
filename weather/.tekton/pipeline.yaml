@@ -31,6 +31,10 @@ spec:
         Default is to mean only use the branch
     - name: toolchain-branch
       default: master
+      
+  workspaces:
+    - name: artifacts
+    
   tasks:
     - name: clean-dir
       taskRef:
