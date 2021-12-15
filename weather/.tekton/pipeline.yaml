@@ -29,8 +29,8 @@ spec:
       default: master
     - name: toolchain-branch
       default: master
-    - secret-name: git token
-      default: "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"
+    - name: secret-name
+      default: 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
       
   workspaces:
     - name: artifacts
