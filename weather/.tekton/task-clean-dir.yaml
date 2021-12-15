@@ -1,8 +1,7 @@
 apiVersion: tekton.dev/v1alpha1
 kind: Task
 metadata:
-  name: clean-dir
-  namespace: tekton-test
+  name: task-clean-dir
 spec:
   steps:
     - name: clean-dir
