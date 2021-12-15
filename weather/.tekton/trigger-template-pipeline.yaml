@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: trigger-template-pipeline
+spec:
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        name: pipelinerun-$(uid)
+      spec:
+        pipelineRef:
+          name: pipeline
