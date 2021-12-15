@@ -32,7 +32,7 @@ spec:
       
   workspaces:
     - name: artifacts
-      mountPath: "."
+      optional: true
     
   tasks:
     - name: clean-dir
