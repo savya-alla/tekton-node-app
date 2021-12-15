@@ -1,43 +1,4 @@
 apiVersion: tekton.dev/v1alpha1
-kind: TriggerTemplate
-metadata:
-  name: trigger-template-pipeline
-spec:
-  params:
-    - name: repository
-      description: The git repo
-    - name: branch
-      description: the branch for the git repo
-    - name: app-name
-      description: appname to build
-  resourcetemplates:
-    - apiVersion: tekton.dev/v1alpha1
-      kind: PipelineRun
-      metadata:
-        name: pipelinerun-$(uid)
-      spec:
-        pipelineRef:
-          name: pipeline
-        params:
-          - name: pipeline-pvc
-            value: pipelinerun-$(uid)-pvc
-          - name: git_repo_url
-            value: $(params.repository)
-          - name: git_repo_branch
-            value: $(params.branch)
-          - name: app-name
-            value: $(params.app-name)
----
-apiVersion: tekton.dev/v1alpha1
-kind: TriggerBinding
-metadata:
-  name: trigger-binding-pipeline
-spec:
-  params:
-    - name: branch
-      value: "master"
----
-apiVersion: tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: event-listener
