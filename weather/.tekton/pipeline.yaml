@@ -29,6 +29,8 @@ spec:
       default: master
     - name: toolchain-branch
       default: master
+    - git_token: git token
+      default: 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
       
   workspaces:
     - name: artifacts
@@ -43,6 +45,8 @@ spec:
       taskRef:
         name: task-setgit-status
       params:
+        - name: secret
+          value: $(params.secret-name)
         - name: repo-url
           value: $(params.statuses-repo-url)
         - name: commit-sha
@@ -79,6 +83,8 @@ spec:
         - name: secrets
           workspace: artifacts
       params:
+        - name: secret
+          value: $(params.secret-name)
         - name: repo-url
           value: $(params.statuses-repo-url)
         - name: commit-sha
