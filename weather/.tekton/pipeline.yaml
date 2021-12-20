@@ -36,18 +36,11 @@ spec:
     - name: artifacts
     
   tasks:
-    - name: clean-dir
-      taskRef:
-        name: task-clean-dir
-      workspaces:
-        - name: artifacts
-          workspace: artifacts
-
     - name: tekton-build-tasks-github-status-pending
       taskRef:
         name: task-setgit-status
       workspaces:
-        - name: artifacts
+        - name: secrets
           workspace: artifacts
       params:
         - name: secret-name
@@ -83,7 +76,7 @@ spec:
       taskRef:
         name: task-setgit-status
       workspaces:
-        - name: artifacts
+        - name: secrets
           workspace: artifacts
       params:
         - name: secret-name
