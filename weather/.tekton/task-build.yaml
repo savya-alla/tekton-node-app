@@ -8,6 +8,13 @@ spec:
         description: name of the application to buidl
       - name: task-pvc
         description: output pvc
+        
+  results:
+    - name: exit-code
+      description: The exit-code of the script
+    - name: status
+      description: The status based on exit-code
+      
   steps:
     - name: build-setup
       image: ibmcom/pipeline-base-image
@@ -40,6 +47,16 @@ spec:
           ls -al;
           echo "npm install";
           npm install;
+          BUILD_FAIL=$?
+          if [[ $BUILD_FAIL == 0 ]]; then
+              echo "Build Complete, No Errors Found!"
+              echo $BUILD_FAIL | tee $(results.exit-code.path)
+              echo -n success | tee $(results.status.path)
+          else
+              echo "Build Failed"
+              echo $BUILD_FAIL | tee $(results.exit-code.path)
+              echo -n fail | tee $(results.status.path)
+          fi
           ls -al;
       volumeMounts:
         - mountPath: /artifacts
