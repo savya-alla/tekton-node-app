@@ -90,11 +90,11 @@ spec:
         - name: state
           value: $(tasks.task-build.results.status)
         - name: task-name
-          value: task-build
+          value: tekton-build-task
         - name: step-name
           value: tekton-build
         - name: description
-          value: Running Tekton build...
+          value: Tekton build Completed...
         - name: pipeline-debug
           value: $(params.pipeline-debug)
 
