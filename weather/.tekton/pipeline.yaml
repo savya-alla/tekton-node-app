@@ -79,7 +79,6 @@ spec:
         name: task-setgit-status
       workspaces:
         - name: secrets
-          workspace: artifacts
       params:
         - name: secret-name
           value: $(params.secret-name)
