@@ -32,6 +32,9 @@ spec:
     - name: secret-name
       default: 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
     
+  workspaces:
+    - name: artifacts
+    
   tasks:
     - name: tekton-build-tasks-github-status-pending
       taskRef:
