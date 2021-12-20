@@ -3,8 +3,7 @@ kind: Task
 metadata:
   name: task-build
 spec:
-  inputs:
-    params:
+  params:
       - name: app-name
         description: name of the application to buidl
       - name: task-pvc
@@ -22,9 +21,9 @@ spec:
       args:
         - set -e -o pipefail;
           apt-get update && apt-get install -y curl && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*;
-          echo "cd to /artifacts/$(inputs.params.app-name)";
-          cd /artifacts/$(inputs.params.app-name);
-          echo "Copy .npmrc file to current /artifacts/$(inputs.params.app-name)";
+          echo "cd to /artifacts/$(params.app-name)";
+          cd /artifacts/$(params.app-name);
+          echo "Copy .npmrc file to current /artifacts/$(params.app-name)";
           echo "${NPMRC}" >> .npmrc;
           cat .npmrc;
       volumeMounts:
@@ -35,8 +34,8 @@ spec:
       command: ["/bin/bash", "-c"]
       args:
         - set -e -o pipefail;
-          echo "cd to /artifacts/$(inputs.params.app-name)";
-          cd /artifacts/$(inputs.params.app-name);
+          echo "cd to /artifacts/$(params.app-name)";
+          cd /artifacts/$(params.app-name);
           pwd;
           ls -al;
           echo "npm install";
@@ -48,4 +47,4 @@ spec:
   volumes:
   - name: task-volume
     persistentVolumeClaim:
-      claimName: $(inputs.params.task-pvc)
+      claimName: $(params.task-pvc)
