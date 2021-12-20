@@ -36,6 +36,9 @@ spec:
     - name: tekton-build-tasks-github-status-pending
       taskRef:
         name: task-setgit-status
+      workspaces:
+        - name: secrets
+          workspace: artifacts
       params:
         - name: secret-name
           value: $(params.secret-name)
@@ -66,6 +69,9 @@ spec:
     - name: tekton-build-tasks-github-status-result
       taskRef:
         name: task-setgit-status
+      workspaces:
+        - name: secrets
+          workspace: artifacts
       params:
         - name: secret-name
           value: $(params.secret-name)
