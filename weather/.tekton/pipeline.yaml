@@ -88,7 +88,7 @@ spec:
         - name: commit-sha
           value: $(params.revision)
         - name: state
-          value: $(tasks.task-build.results.status)
+          value: $(tasks.tekton-build-task.results.status)
         - name: task-name
           value: tekton-build-task
         - name: step-name
