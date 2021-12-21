@@ -32,16 +32,10 @@ spec:
     - name: secret-name
       default: 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
     
-  workspaces:
-    - name: secrets
-    
   tasks:
     - name: tekton-build-tasks-github-status-pending
       taskRef:
         name: task-setgit-status
-      workspaces:
-        - name: secrets
-          workspace: secrets
       params:
         - name: secret-name
           value: $(params.secret-name)
@@ -72,9 +66,6 @@ spec:
     - name: tekton-build-tasks-github-status-result
       taskRef:
         name: task-setgit-status
-      workspaces:
-        - name: secrets
-          workspace: secrets
       params:
         - name: secret-name
           value: $(params.secret-name)
