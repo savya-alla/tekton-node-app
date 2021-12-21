@@ -111,7 +111,3 @@ spec:
           exit $exit_code
         fi
 
-      volumeMounts:
-        - mountPath: /secrets
-          name: secrets
-
