@@ -96,8 +96,7 @@ spec:
           CONTEXT="$(params.prefix)/$(params.task-name)"
         fi
 
-        source /scripts/retry_command.sh
-
+  
         retry $(params.retry-count) $(params.retry-delay) \
           cocoa set-status \
             --state="$(params.state)" \
@@ -113,8 +112,6 @@ spec:
         fi
 
       volumeMounts:
-        - mountPath: /scripts
-          name: retry-command
         - mountPath: /secrets
           name: secrets
 
