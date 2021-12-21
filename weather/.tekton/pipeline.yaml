@@ -33,7 +33,7 @@ spec:
       default: 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
     
   workspaces:
-    - name: artifacts
+    - name: secrets
     
   tasks:
     - name: tekton-build-tasks-github-status-pending
@@ -41,7 +41,7 @@ spec:
         name: task-setgit-status
       workspaces:
         - name: secrets
-          workspace: artifacts
+          workspace: secrets
       params:
         - name: secret-name
           value: $(params.secret-name)
@@ -74,7 +74,7 @@ spec:
         name: task-setgit-status
       workspaces:
         - name: secrets
-          workspace: artifacts
+          workspace: secrets
       params:
         - name: secret-name
           value: $(params.secret-name)
