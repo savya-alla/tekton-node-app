@@ -115,6 +115,8 @@ spec:
       volumeMounts:
         - mountPath: /scripts
           name: retry-command
+        - mountPath: /secrets
+          name: secrets
 
   workspaces:
     - name: secrets
