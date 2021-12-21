@@ -118,6 +118,3 @@ spec:
         - mountPath: /secrets
           name: secrets
 
-  workspaces:
-    - name: secrets
-      mountPath: /secrets
